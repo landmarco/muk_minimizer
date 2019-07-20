@@ -4,9 +4,14 @@ import sys
 import jsonlines
 from gensim.summarization.summarizer import summarize
 import re
+import spacy
+from spacy.lang.en.stop_words import STOP_WORDS
+from string import punctuation
+from heapq import nlargest
 
 #TODO: implement other version of non-gensim summarizer
 def simple_text_summarizer(raw_docx):
+    nlp = spacy.load('en')
     raw_text = raw_docx
     docx = nlp(raw_text)
     stopwords = list(STOP_WORDS)
@@ -112,11 +117,11 @@ def arbitrary_text_summarizer(text, ratio=0.2):
     return formatted_summary
     
 
-
- main():
-    """Minimize a law text using extractive summary."""
-
-    # Save arguments and options
+"""
+ def main():
+    Minimize a law text using extractive summary.
+    # Save arguments and option
+    
     args = [a for a in sys.argv[1:] if not a.startswith("-")]
     opts = [o for o in sys.argv[1:] if o.startswith("-")]
 
@@ -131,3 +136,4 @@ def arbitrary_text_summarizer(text, ratio=0.2):
 
 if __name__ == "__main__":
     main()
+"""
