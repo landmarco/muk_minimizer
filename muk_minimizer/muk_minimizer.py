@@ -117,9 +117,9 @@ def arbitrary_text_summarizer(text, ratio=0.2):
     return formatted_summary
     
 
-"""
- def main():
-    Minimize a law text using extractive summary.
+
+def main():
+    """Minimize a law text using extractive summary."""
     # Save arguments and option
     
     args = [a for a in sys.argv[1:] if not a.startswith("-")]
@@ -136,4 +136,4 @@ def arbitrary_text_summarizer(text, ratio=0.2):
 
 if __name__ == "__main__":
     main()
-"""
+
