@@ -1,9 +1,9 @@
-muk_minimizer
+Muk Minimizer
 =============
 
 
 
-A summarizer primarily for legal opinions and documents
+An extractive summarizer primarily for legal opinions and documents.
 
 
 
