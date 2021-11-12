@@ -8,9 +8,11 @@ import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
 from heapq import nlargest
+from transformers import pipeline
+import torch
 
 #TODO: implement other version of non-gensim summarizer
-def simple_text_summarizer(raw_docx):
+def simple_text_summarizer(raw_docx, summary_sents=20):
     nlp = spacy.load('en')
     raw_text = raw_docx
     docx = nlp(raw_text)
@@ -45,9 +47,10 @@ def simple_text_summarizer(raw_docx):
                         sentence_scores[sent] += word_frequencies[word.text.lower()]
 
     # Find N Largest
-    summary_sentences = nlargest(7, sentence_scores, key=sentence_scores.get)
+    summary_sentences = nlargest(summary_sents, sentence_scores, key=sentence_scores.get)
     final_sentences = [ w.text for w in summary_sentences ]
     summary = ' '.join(final_sentences)
+    return summary
     print("Original Document\n")
     print(raw_docx)
     print("Total Length:",len(raw_docx))
@@ -115,6 +118,11 @@ def arbitrary_text_summarizer(text, ratio=0.2):
         '\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\nORIGINAL TEXT:\n' + \
         text
     return formatted_summary
+
+def transformer_summarizer(text, min_length=200, max_length=1000):
+    summarizer = pipeline("summarization", model='bart-large-cnn', tokenizer='bart-large-cnn') #model="t5-base", tokenizer="t5-base", framework="tf")
+    summary = summarizer(text, min_length=min_length, max_length=max_length)
+    return summary
     
 
 
